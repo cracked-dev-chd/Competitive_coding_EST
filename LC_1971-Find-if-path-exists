@@ -1,0 +1,26 @@
+class Solution(object):
+    def validPath(self, n, edges, source, destination):
+        """
+        :type n: int
+        :type edges: List[List[int]]
+        :type source: int
+        :type destination: int
+        :rtype: bool
+        """
+        graph = collections.defaultdict(list)
+        for a, b in edges:
+            graph[a].append(b)
+            graph[b].append(a)
+
+        visited = set()
+        print(graph)
+        def dfs(node):
+            if node == destination:
+                return True
+            visited.add(node)
+            for nxt in graph[node]:
+                if nxt not in visited and dfs(nxt):
+                    return True
+            return False
+
+        return dfs(source)
